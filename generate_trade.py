@@ -451,14 +451,14 @@ class GenerateTrade(object):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Generate trade and passengers for Mongoose 2e')
     parser.add_argument('UWP', nargs=1, help="The UWP for the source world")
-    parser.add_argument('--search', dest='search', action='store_true')
+    parser.add_argument('--search', dest='search', action='store_true', help="Search traveller maps for the World UWP")
     parser.add_argument('--amber', dest='amber', action='store_true')
     parser.add_argument('--red', dest='red', action='store_true')
     parser.add_argument('--seed', type=int, nargs=1, help="An optional PRNG seed")
     parser.add_argument('--steward', type=int, help='Steward modifier')
     parser.add_argument('jump', type=int, help='the distance to jump')
     parser.add_argument('broker', type=int, help='The effect of a broker, carouse or streetwise check')
-    parser.add_argument('--hide', dest='hide', action='store_true')
+    parser.add_argument('--hide', dest='hide', action='store_true', help='Hide illegal and problematic cargo behind a different description')
 
     args = parser.parse_args()
     app = GenerateTrade(args)
