@@ -109,11 +109,12 @@ class GenerateTrade(object):
         else:
             self._uwp = ParseUWP(args.UWP[0])
         self._jump = args.jump
+        self._broker = args.broker
         self._is_amber = args.amber
         self._is_red = args.red
         self._seed = args.seed[0] if args.seed else random.randint(1, sys.maxsize)
         self._prng = random.Random(self._seed)
-        self._steward = args.steward if args.steward else 0
+        self._steward = args.steward if args.steward else -3
         self._hide = args.hide
 
     @property
@@ -139,7 +140,7 @@ class GenerateTrade(object):
         return self.d()*10+self.d()
 
     def generate_passage(self, modifier=-4):
-        modifiers = self._steward - modifier
+        modifiers = self._steward - modifier + self._broker
         if self._uwp.population < 1:
             modifiers -=4
         elif self._uwp.population in [6,7]:
@@ -224,7 +225,7 @@ class GenerateTrade(object):
         return result
         
     def generate_freight(self, type_='minor'):
-        modifier = 0
+        modifier = 0 + self._broker
         if type_ == 'major':
             modifier -=4
         if type_ == 'incidental':
@@ -456,6 +457,7 @@ if __name__ == '__main__':
     parser.add_argument('--seed', type=int, nargs=1, help="An optional PRNG seed")
     parser.add_argument('--steward', type=int, help='Steward modifier')
     parser.add_argument('jump', type=int, help='the distance to jump')
+    parser.add_argument('broker', type=int, help='The effect of a broker, carouse or streetwise check')
     parser.add_argument('--hide', dest='hide', action='store_true')
 
     args = parser.parse_args()
