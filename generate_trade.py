@@ -401,7 +401,7 @@ class GenerateTrade(object):
         if self._source.Hi:
             available["Luxury Goods"] = self.d()
 
-        if self._source.Ht or self._Hi:
+        if self._source.Ht or self._source.Hi:
             available["Medical Supplies"] = self.d()*5
 
         if self._source.De or self._source.Fl or self._source.Ie or self._source.Wa:
